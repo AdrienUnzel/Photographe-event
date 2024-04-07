@@ -2,9 +2,77 @@
 Theme Name: Photographe Event
 Theme URI: http://localhost/Photographe-Event
 Author: Adrien
-Author URI: 
+Author URI: http://localhost/Photographe-Event
 Description: Thème pour le site "Photographe Event"
 Version: 1.0
 Tags: Photographe event
 Text Domain: photographe event
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@1,700&display=swap');
+
+
+
+
+
+
+header {
+    width: 100%;
+    /*width: 1447px;*/
+    height: 966px;
+    flex-shrink: 0;
+    background: url('./images/nathalie-11.jpeg') lightgray 50% / cover no-repeat;
+    
+}
+
+h1 {
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #FFF;
+    font-family: "Space Mono", monospace;
+    font-size: 96px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase; 
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 402px; 
+    color: transparent;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    /*width: 1440px;*/
+    height: 40px;
+    padding: 1px 0px 8px 0px;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    border-top: 1px solid #000;
+    padding: 0;
+}
+
+footer ul {
+    display: flex;
+    width: 100%;
+    list-style-type: none;
+    gap: 86px;
+    justify-content: center;
+}
+
+footer li {
+    text-align: center;
+}
+
+footer a {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: black;
+}
