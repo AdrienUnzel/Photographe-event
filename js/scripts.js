@@ -15,9 +15,9 @@ function hideModal() {
 }
 
 // Obtenir le bouton qui ouvre la modal
-var btn = document.getElementById("myBtn");
+var btn = document.getElementsByClassName("myBtn");
 // Obtenir l'élément de fermeture de la modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementById("closeModal");
 // Obtenir l'overlay
 var overlay = document.getElementById("overlay");
 
@@ -39,14 +39,28 @@ window.onclick = function(event) {
 }
 
 // Appel de la fonction pour afficher la modal lors du chargement de la page
-window.onload = function() {
+/*window.onload = function() {
     showModal();
-}
+}*/
 
 // Obtenir l'élément de menu "Contact"
-var contactMenu = document.getElementById("menu-contact");
+/*var contactMenu = document.getElementById("menu-contact");
 
 // Lorsque l'utilisateur clique sur l'élément de menu "Contact", afficher la modal
 contactMenu.onclick = function() {
     showModal();
-};
+}*/
+
+// Obtenir l'élément bouton "Contact"
+var btnContact = document.getElementById("btnContact");
+
+// Lorsque l'utilisateur clique sur l'élément bouton "Contact", afficher la modal
+btnContact.onclick = function() {
+    showModal();
+}
+
+
+//photo navigation creer un système de boucle infini
+
+
+

@@ -1,0 +1,456 @@
+$color_1: black;
+$color_2: transparent;
+$color_3: #aaa;
+$color_4: #313144;
+$color_5: #000;
+$font-family_1: "Space Mono", monospace;
+$font-family_2: "Poppins", sans-serif;
+$font-family_3: "Poppins";
+$font-family_4: "Space Mono";
+$background-color_1: white;
+$background-color_2: #fefefe;
+
+
+@import "https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap";
+/* The Modal (background) */
+/* Modal Content/Box */
+/* The Close Button */
+/* Modal Header */
+/* Modal Body */
+/* Modal Content */
+/* Add Animation */
+@-webkit-keyframes animatetop {
+	from {
+		top: -300px;
+		opacity: 0;
+	}
+	to {
+		top: 0;
+		opacity: 1;
+	}
+}
+@keyframes animatetop {
+	from {
+		top: -300px;
+		opacity: 0;
+	}
+	to {
+		top: 0;
+		opacity: 1;
+	}
+}
+/*FOMULAIRE DE CONTACT*/
+/********single-photo********/
+.space-mono-regular {
+	font-family: $font-family_1;
+	font-weight: 400;
+	font-style: normal;
+}
+.space-mono-bold {
+	font-family: $font-family_1;
+	font-weight: 700;
+	font-style: normal;
+}
+.space-mono-regular-italic {
+	font-family: $font-family_1;
+	font-weight: 400;
+	font-style: italic;
+}
+.space-mono-bold-italic {
+	font-family: $font-family_1;
+	font-weight: 700;
+	font-style: italic;
+}
+.poppins-light {
+	font-family: $font-family_2;
+	font-weight: 300;
+	font-style: normal;
+}
+.poppins-regular {
+	font-family: $font-family_2;
+	font-weight: 400;
+	font-style: normal;
+}
+.poppins-medium {
+	font-family: $font-family_2;
+	font-weight: 500;
+	font-style: normal;
+}
+html {
+    height: 100%;
+}
+body {
+	width: 100%;
+	height: 100%;
+	display: flex;
+    flex-direction: column;
+}
+header {
+	width: 100%;
+}
+nav {
+	width: 1440px;
+	height: 80px;
+	flex-shrink: 0;
+	background: #FFF;
+	box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+	margin: auto;
+	ul {
+		li {
+			display: inline;
+			a {
+				color: $color_1;
+				text-decoration: none;
+				padding: 10px 20px;
+				margin: 0;
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+		}
+	}
+}
+ul#menu-menu-principal {
+	font-family: $font-family_1;
+	font-weight: 400;
+	font-style: normal;
+	position: absolute;
+	right: 146px;
+	padding-left: 0;
+    left: 1226px;
+}
+img.logo {
+	position: relative;
+	top: 31px;
+	left: 146px;
+}
+h1 {
+	-webkit-text-stroke-width: 3px;
+	-webkit-text-stroke-color: #FFF;
+	font-family: $font-family_1;
+	font-size: 96px;
+	font-style: italic;
+	font-weight: 700;
+	line-height: normal;
+	text-transform: uppercase;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	color: $color_2;
+	width: 1440px;
+	height: 962px;
+	margin: auto;
+	flex-shrink: 0;
+	background: url('../images/nathalie-11.webp') lightgray 50% / cover no-repeat;
+}
+footer {
+	display: flex;
+	width: 100%;
+	height: 40px;
+	flex-direction: column;
+	align-items: center;
+	gap: 7px;
+	flex-shrink: 0;
+	border-top: 1px solid #000;
+	padding: 0;
+	position: relative;
+	top: 1841px;
+	padding-bottom: 30px;
+	ul {
+		display: flex;
+		width: 100%;
+		list-style-type: none;
+		gap: 86px;
+		justify-content: center;
+	}
+	li {
+		text-align: center;
+	}
+	a {
+		height: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-shrink: 0;
+		text-decoration: none;
+		color: $color_1;
+	}
+}
+button#myBtn {
+	display: none;
+}
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 2;
+	left: 30%;
+	top: 50px;
+	width: 597px;
+	height: 769px;
+	background-color: $background-color_1;
+	border: 5px solid;
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s;
+}
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.60);
+	z-index: 1;
+	display: none;
+}
+.modal-content {
+	background-color: $background-color_2;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+	position: relative;
+	background-color: $background-color_2;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	height: 769px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex-direction: column;
+}
+.close {
+	color: $color_3;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	position: relative;
+	left: 40%;
+	display: none;
+	&:hover {
+		color: $color_1;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	&:focus {
+		color: $color_1;
+		text-decoration: none;
+		cursor: pointer;
+	}
+}
+.modal-header {
+	padding: 0;
+	width: 597px;
+	height: 106px;
+	overflow: hidden;
+	img {
+		height: 106px;
+		right: 24%;
+		position: relative;
+	}
+}
+.modal-body {
+	padding-top: 45px;
+}
+input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required {
+	width: 263px;
+	height: 40px;
+	flex-shrink: 0;
+	border-radius: 8px;
+	border: 1px solid #B8BBC2;
+	background: #FFF;
+}
+textarea.wpcf7-form-control.wpcf7-textarea {
+	width: 263px;
+	height: 210px;
+	border-radius: 8px;
+	border: 1px solid #B8BBC2;
+	background: #FFF;
+}
+label {
+	color: $color_4;
+	font-family: $font-family_3;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-transform: uppercase;
+}
+input.wpcf7-form-control.wpcf7-submit.has-spinner {
+	display: flex;
+	width: 263px;
+	height: 50px;
+	padding: 8px 15px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+	border-radius: 2px;
+	background: #D8D8D8;
+	box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+	font-family: $font-family_4;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+.photo {
+	width: 100%;
+	h2 {
+		width: 420px;
+		color: $color_5;
+		font-family: $font-family_4;
+		font-size: 66px;
+		font-style: italic;
+		font-weight: 400;
+		line-height: 58px;
+		text-transform: uppercase;
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+	p {
+		color: $color_5;
+		font-family: $font-family_4;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		letter-spacing: 1.4px;
+		text-transform: uppercase;
+		margin-bottom: 0;
+		margin-top: 0;
+	}
+}
+.featured-image {
+	img {
+		width: 563px;
+		height: 844px;
+		flex-shrink: 0;
+		position: absolute;
+		right: 18%;
+		margin-top: 38px;
+		object-fit: contain;
+	}
+}
+.info-photo {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+	position: relative;
+	left: 19%;
+	top: 525px;
+	width: 420px;
+}
+hr {
+	width: 570px;
+	border: 1px solid black;
+	position: absolute;
+	top: 963px;
+	left: 19%;
+	margin-top: 35px;
+}
+.single-text {
+	color: $color_5;
+	text-align: right;
+	font-family: $font-family_2;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	position: absolute;
+	top: 1000px;
+	left: 19%;
+	margin-top: 49px;
+}
+button.button-contact {
+	display: flex;
+	width: 272PX;
+	height: 50px;
+	padding: 8px 15px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+	border-radius: 2px;
+	background: #D8D8D8;
+	box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+	top: 1000px;
+	position: absolute;
+	left: 35%;
+	cursor: pointer;
+	color: $color_5;
+	font-family: $font-family_4;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-top: 38px;
+	object-fit: contain;
+}
+hr.line {
+	position: absolute;
+	top: 1080px;
+	width: 1200px;
+	margin-top: 49px;
+	object-fit: contain;
+}
+.photo-navigation {
+    position: absolute;
+    right: 342px;
+    top: 1010px;
+
+    .previous-photo,
+    .next-photo {
+        width: 81px;
+        height: 71px;
+
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            // Ajout de l'effet semi-transparent au survol
+            &:hover {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.60);
+                    z-index: 1; // Pour s'assurer que l'overlay est au-dessus de l'image
+                }
+            }
+        }
+    }
+}
+
+.contact.btn {
+    display: flex;
+    position: absolute;
+    top: 1090px;
+    right: 337px;
+
+    .btn-nav {
+        width: 26px;
+        height: 8px;
+        cursor: pointer;
+    }
+
+    .btn-nav.left,
+    .btn-nav.right {
+        margin: 0 10px;
+    }
+}

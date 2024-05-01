@@ -10,7 +10,7 @@
 
 <!-- Modal content -->
 <div class="modal-content">
-  <span class="close">×</span>
+  <span class="close js-close-btn" id="closeModal">×</span>
   <div class="modal-header">
   <img src="<?php echo get_template_directory_uri() . '/images/Contact header.jpg'; ?>" alt="CONTACT">
     
@@ -21,3 +21,4 @@
 
 
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/scripts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
