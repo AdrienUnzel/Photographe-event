@@ -303,6 +303,7 @@ input.wpcf7-form-control.wpcf7-submit.has-spinner {
 	width: 100%;
 	h2 {
 		width: 420px;
+		height: 116px;
 		color: $color_5;
 		font-family: $font-family_4;
 		font-size: 66px;
@@ -353,7 +354,7 @@ hr {
 	position: absolute;
 	top: 963px;
 	left: 19%;
-	margin-top: 35px;
+	margin-top: 37px;
 }
 .single-text {
 	color: $color_5;
@@ -364,7 +365,7 @@ hr {
 	font-weight: 300;
 	line-height: normal;
 	position: absolute;
-	top: 1000px;
+	top: 1011px;
 	left: 19%;
 	margin-top: 49px;
 }
@@ -395,7 +396,7 @@ button.button-contact {
 }
 hr.line {
 	position: absolute;
-	top: 1080px;
+	top: 1081px;
 	width: 1200px;
 	margin-top: 49px;
 	object-fit: contain;
@@ -454,3 +455,44 @@ hr.line {
         margin: 0 10px;
     }
 }
+
+/*****************PHOTOS APPARENTEES*****************/
+.photos-apparentees {
+    position: absolute;
+    left: 19%;
+    top: 1158px;
+	width: 1200px;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+		display: flex;
+    	gap: 20px;
+		justify-content: space-between;
+
+        li {
+            
+
+            img {
+                width: 564px;
+                height: 495px;
+                flex-shrink: 0;
+				
+            }
+        }
+    }
+}
+
+h3 {
+    color: #000;
+    font-family: "Space Mono";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+	margin-bottom: 52px;
+}
+

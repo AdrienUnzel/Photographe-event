@@ -99,7 +99,7 @@ $annee     = get_post_meta(get_the_ID(), 'annee', true);
 </div>
 
 <hr class="line">
-
+<?php get_template_part( 'templates_parts/photo_block' ); ?>
 <?php get_footer(); ?>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
