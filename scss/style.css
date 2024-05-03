@@ -144,7 +144,7 @@ footer {
   border-top: 1px solid #000;
   padding: 0;
   position: relative;
-  top: 1841px;
+  top: 3374px;
   padding-bottom: 30px;
 }
 footer ul {
@@ -492,4 +492,28 @@ h3 {
   letter-spacing: 1.8px;
   text-transform: uppercase;
   margin-bottom: 52px;
+}
+
+/******************GALLERIE PHOTOS***************/
+.photo-grid {
+  position: absolute;
+  top: 1204px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  left: 146px;
+  right: 146px;
+  width: 1148px;
+  margin: auto;
+}
+
+.photo-item {
+  width: calc(50% - 20px);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.photo-item img {
+  width: 564px;
+  height: 495px;
 }/*# sourceMappingURL=style.css.map */
