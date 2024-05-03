@@ -142,7 +142,8 @@ h1 {
 	height: 962px;
 	margin: auto;
 	flex-shrink: 0;
-	background: url('../images/nathalie-11.webp') lightgray 50% / cover no-repeat;
+	background-size: contain;
+	
 }
 footer {
 	display: flex;
