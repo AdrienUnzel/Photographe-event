@@ -11,7 +11,9 @@
 
 <header>
     <nav role="navigation" aria-label="<?php _e('Menu principal', 'photographe-event'); ?>">
-        <img class="logo" src="<?php echo get_template_directory_uri() . '/images/logo.png'; ?> " alt="logo">
+    <a href="http://localhost/Photographe-Event/"> 
+        <img class="logo" src="<?php echo get_template_directory_uri() . '/images/logo.png'; ?>" alt="logo">
+    </a>
         <?php
             wp_nav_menu([
                 'theme_location' => 'main-menu',

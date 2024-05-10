@@ -44,23 +44,69 @@ window.onclick = function(event) {
 }*/
 
 // Obtenir l'élément de menu "Contact"
-/*var contactMenu = document.getElementById("menu-contact");
+var contactMenu = document.getElementsByClassName("menu-contact");
 
 // Lorsque l'utilisateur clique sur l'élément de menu "Contact", afficher la modal
-contactMenu.onclick = function() {
-    showModal();
-}*/
+
+Array.from(contactMenu).forEach(function(element) {
+    element.addEventListener('click', () => {
+        showModal();
+    });
+});
 
 // Obtenir l'élément bouton "Contact"
 var btnContact = document.getElementById("btnContact");
 
 // Lorsque l'utilisateur clique sur l'élément bouton "Contact", afficher la modal
-btnContact.onclick = function() {
-    showModal();
+if(!!btnContact){
+    btnContact.onclick = function() {
+        showModal();
+    }
 }
 
 
 //photo navigation creer un système de boucle infini
+
+
+//pagination infini
+// Fonction pour charger plus de photos via Ajax
+function loadMorePhotos(page) {
+    var data = {
+        action: 'load_more_photos',
+        page: page
+    };
+
+    $.ajax({
+        url: ajaxurl,
+        type: 'POST',
+        data: data,
+        success: function(response) {
+            // Manipuler la réponse JSON pour ajouter les nouvelles photos à la galerie
+            $('.photo-grid').append(response);
+            
+            // Déplacer le bouton "Charger plus" à l'intérieur de la galerie
+            var $loadMoreBtn = $('#load-more-btn');
+            $loadMoreBtn.appendTo('.photo-grid');
+
+            // Ajuster le positionnement du bouton
+            $loadMoreBtn.css({
+                position: 'relative', // Utiliser le positionnement relatif pour permettre le centrage
+                top: '20px', // Espacement entre le bouton et les éléments de la galerie
+                left: '12%', // Centrage horizontal
+                transform: 'translateX(-50%)', // Centrer horizontalement
+            });
+        }
+    });
+}
+
+// Gestionnaire d'événement délégué pour le bouton "Charger plus"
+$(document).on('click', '#load-more-btn', function() {
+    var nextPage = 2; // La page suivante à charger
+    loadMorePhotos(nextPage);
+});
+
+
+
 
 
 

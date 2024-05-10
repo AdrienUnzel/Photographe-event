@@ -85,12 +85,13 @@ body {
 	height: 100%;
 	display: flex;
     flex-direction: column;
+	align-items: center;
 }
 header {
 	width: 100%;
 }
 nav {
-	width: 1440px;
+	width: 100%;
 	height: 80px;
 	flex-shrink: 0;
 	background: #FFF;
@@ -106,6 +107,7 @@ nav {
 				margin: 0;
 				padding-top: 0;
 				padding-bottom: 0;
+				padding-right: 0;
 			}
 		}
 	}
@@ -117,7 +119,6 @@ ul#menu-menu-principal {
 	position: absolute;
 	right: 146px;
 	padding-left: 0;
-    left: 1226px;
 }
 img.logo {
 	position: relative;
@@ -138,7 +139,7 @@ h1 {
 	position: relative;
 	align-items: center;
 	color: $color_2;
-	width: 1440px;
+	width: 100%;
 	height: 962px;
 	margin: auto;
 	flex-shrink: 0;
@@ -157,7 +158,7 @@ footer {
 	border-top: 1px solid #000;
 	padding: 0;
 	position: relative;
-	top: 3374px;
+	top: 7000px;
 	padding-bottom: 30px;
 	ul {
 		display: flex;
@@ -184,7 +185,7 @@ button#myBtn {
 }
 .modal {
 	display: none;
-	position: fixed;
+	position: absolute;
 	z-index: 2;
 	left: 30%;
 	top: 50px;
@@ -304,8 +305,8 @@ input.wpcf7-form-control.wpcf7-submit.has-spinner {
 .photo {
 	width: 100%;
 	h2 {
-		width: 420px;
-		height: 116px;
+		width: 50%;
+		height: 50%;
 		color: $color_5;
 		font-family: $font-family_4;
 		font-size: 66px;
@@ -331,32 +332,33 @@ input.wpcf7-form-control.wpcf7-submit.has-spinner {
 }
 .featured-image {
 	img {
-		width: 563px;
-		height: 844px;
-		flex-shrink: 0;
-		position: absolute;
-		right: 18%;
-		margin-top: 38px;
-		object-fit: contain;
+    width: calc(50% - 146px);
+    height: 844px;
+    flex-shrink: 0;
+    position: absolute;
+    margin-top: 38px;
+    object-fit: cover;
+    right: 146px;
 	}
 }
 .info-photo {
-	display: inline-flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 20px;
-	position: relative;
-	left: 19%;
-	top: 525px;
-	width: 420px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    position: absolute;
+    left: 144px;
+    top: 605px; 
+    width: 50%;
 }
+
 hr {
-	width: 570px;
-	border: 1px solid black;
-	position: absolute;
-	top: 963px;
-	left: 19%;
-	margin-top: 37px;
+    width: calc(50% - 167px);
+    border: 1px solid black;
+    position: absolute;
+    top: 963px;
+    left: 146px; 
+    margin-top: 37px;
 }
 .single-text {
 	color: $color_5;
@@ -368,8 +370,8 @@ hr {
 	line-height: normal;
 	position: absolute;
 	top: 1011px;
-	left: 19%;
-	margin-top: 49px;
+	left: 145px;
+	margin-top: 48px;
 }
 button.button-contact {
 	display: flex;
@@ -385,7 +387,7 @@ button.button-contact {
 	box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
 	top: 1000px;
 	position: absolute;
-	left: 35%;
+	left: calc(50% - 290px);
 	cursor: pointer;
 	color: $color_5;
 	font-family: $font-family_4;
@@ -397,21 +399,19 @@ button.button-contact {
 	object-fit: contain;
 }
 hr.line {
-	position: absolute;
-	top: 1081px;
-	width: 1200px;
-	margin-top: 49px;
-	object-fit: contain;
+    position: absolute;
+    top: 1081px;
+    width: calc(100% - 292px); /* La largeur totale moins 2 fois 146px */
+    left: 146px; 
 }
 .photo-navigation {
-    position: absolute;
-    right: 342px;
-    top: 1010px;
-
     .previous-photo,
     .next-photo {
         width: 81px;
         height: 71px;
+		position: absolute;
+    	right: 146px;
+    	top: 1010px;
 
         a {
             display: block;
@@ -444,47 +444,48 @@ hr.line {
     display: flex;
     position: absolute;
     top: 1090px;
-    right: 337px;
+    right: 146px;
 
     .btn-nav {
-        width: 26px;
-        height: 8px;
+        width: 25px;
+        height: 0px;
         cursor: pointer;
     }
 
     .btn-nav.left,
     .btn-nav.right {
-        margin: 0 10px;
+        margin: 0 8px;
     }
 }
 
 /*****************PHOTOS APPARENTEES*****************/
 .photos-apparentees {
     position: absolute;
-    left: 19%;
+    left: 145px;
     top: 1158px;
-	width: 1200px;
+    width: calc(100% - 292px); /* Prendre toute la largeur de la page moins 292px (146px à gauche et 146px à droite) */
 
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
-		display: flex;
-    	gap: 20px;
-		justify-content: space-between;
+        display: flex;
+        gap: 20px;
 
         li {
-            
+            flex: 1; /* Chaque élément li prendra la même quantité d'espace */
+            max-width: 50%; 
+        }
 
-            img {
-                width: 564px;
-                height: 495px;
-                flex-shrink: 0;
-				
-            }
+        img {
+            width: 100%; 
+            height: 495px;
+            flex-shrink: 0;
+			object-fit: cover;
         }
     }
 }
+
 
 h3 {
     color: #000;
@@ -520,4 +521,23 @@ h3 {
 .photo-item img {
     width: 564px;
     height: 495px;
+	object-fit: cover;
+}
+button#load-more-btn {
+	display: flex;
+	width: 272px;
+	height: 50px;
+	padding: 8px 15px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+	border-radius: 2px;
+	background: #D8D8D8;
+	box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.02);
+	position: absolute;
+	top: 3284px;
+	left: 584px;
+	right: 584px;
+	margin: auto;
 }

@@ -45,5 +45,46 @@ function getRandomImageURL() {
   }
 }
 
+// Fonction pour charger plus de photos
+function load_more_photos() {
+    $page = $_POST['page']; // Page à charger
+
+    $args = array(
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'posts_per_page' => 8,
+        'orderby' => 'post_date', // Tri par date de publication
+        'order' => 'DESC', // Du plus récent au plus ancien
+        'paged' => $page // Utilisez la pagination pour charger la prochaine page
+    );
+
+    $attachments = get_posts($args);
+
+    // Générer le HTML pour les nouvelles photos
+    $output = '';
+    if ($attachments) {
+        foreach ($attachments as $attachment) {
+            $image_url = wp_get_attachment_image_src($attachment->ID, 'full');
+            $image_alt = get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
+            $output .= '<div class="photo-item"><img src="' . $image_url[0] . '" alt="' . $image_alt . '" width="564" height="495"></div>';
+        }
+    }
+
+    wp_send_json($output); // Renvoie la réponse JSON avec le HTML des nouvelles photos
+}
+add_action('wp_ajax_load_more_photos', 'load_more_photos'); // Pour les utilisateurs connectés
+add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos'); // Pour les utilisateurs non connectés
+
+// Enregistrer et inclure votre script JavaScript
+function enqueue_custom_scripts() {
+    wp_enqueue_script('jquery'); // Assurez-vous que jQuery est chargé
+    wp_register_script('custom-scripts', get_template_directory_uri() . '/scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('custom-scripts');
+
+    // Passer la variable ajaxurl à votre script JavaScript
+    wp_localize_script('custom-scripts', 'ajaxurl', admin_url('admin-ajax.php'));
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+
 
 ?>

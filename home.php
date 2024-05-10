@@ -6,12 +6,13 @@
 <section class="gallery">
     <div class="photo-grid">
         <?php
-        $args = array(
-            'post_type' => 'attachment',
-            'post_mime_type' => 'image',
-            'posts_per_page' => 8, // Nombre d'images à afficher
-            'orderby' => 'rand' // Ordre aléatoire
-        );
+$args = array(
+    'post_type' => 'attachment',
+    'post_mime_type' => 'image',
+    'posts_per_page' => 16, // Nombre d'images à afficher
+    'orderby' => 'post_date', // Tri par date de publication
+    'order' => 'DESC', // Du plus récent au plus ancien
+);
 
         $attachments = get_posts($args);
 
@@ -36,6 +37,8 @@
         }
         ?>
     </div>
+        <!-- Bouton "Charger plus" -->
+        <button id="load-more-btn">Charger plus</button>
 </section>
 
 <?php get_footer(); ?>
