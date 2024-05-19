@@ -1,22 +1,43 @@
+
 <?php get_header(); ?>
+
 
 <h1 style="background: url('<?php echo getRandomImageURL(); ?>') lightgray 50% / cover no-repeat;">
     PHOTOGRAPHE EVENT
 </h1>
+
+<!-- Ajout des selects -->
+<div class="filters">
+    <select id="filter-by-category">
+        <option value="">catégories</option>
+    </select>
+
+    <select id="filter-by-format">
+        <option value="">formats</option>
+    </select>
+
+    <select id="sort-by">
+        <option value="">trier par</option>
+        <option value="date">date</option>
+    </select>
+</div>
+
+
 <section class="gallery">
     <div class="photo-grid">
         <?php
-$args = array(
-    'post_type' => 'attachment',
-    'post_mime_type' => 'image',
-    'posts_per_page' => 16, // Nombre d'images à afficher
-    'orderby' => 'post_date', // Tri par date de publication
-    'order' => 'DESC', // Du plus récent au plus ancien
-);
+        $args = array(
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'posts_per_page' => 8,
+            'orderby' => 'post_date', // Tri par date de publication
+            'order' => 'DESC', // Du plus récent au plus ancien
+            'paged' => 1 // Utilisez la pagination pour charger la prochaine page
+        );
 
         $attachments = get_posts($args);
 
-        $count = 0; // Compteur pour s'assurer qu'on n'affiche que 8 photos au maximum
+        $count = 0; // Compteur pour s'assurer qu'on n'affiche que 16 photos au maximum
 
         if ($attachments) {
             foreach ($attachments as $attachment) {
