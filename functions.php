@@ -47,7 +47,7 @@ function load_more_photos() {
         'post_mime_type' => 'image',
         'posts_per_page' => 8,
         'orderby' => 'post_date',
-        'order' => 'DESC',
+        'order' => 'ASC',
         'paged' => $page,
     );
 
@@ -57,7 +57,17 @@ function load_more_photos() {
         foreach ($attachments as $attachment) {
             $image_url = wp_get_attachment_image_src($attachment->ID, 'full');
             $image_alt = get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
-            $output .= '<div class="photo-item"><img src="' . esc_url($image_url[0]) . '" alt="' . esc_attr($image_alt) . '" width="564" height="495"></div>';
+            $image_category = wp_get_post_terms($attachment->ID, 'categorie'); 
+            $category_name = !empty($image_category) ? $image_category[0]->name : 'Uncategorized';
+            
+            // Append image HTML with reference and category
+            $output .= '<div class="photo-item">';
+            $output .= '<img src="' . esc_url($image_url[0]) . '" alt="' . esc_attr($image_alt) . '" width="564" height="495">';
+            $output .= '<div class="photo-info">';
+            $output .= '<p class="photo-reference">' . esc_html($image_alt) . '</p>';
+            $output .= '<p class="photo-category">' . esc_html($category_name) . '</p>';
+            $output .= '</div>'; // Close photo-info
+            $output .= '</div>'; // Close photo-item
         }
     }
 
@@ -65,6 +75,7 @@ function load_more_photos() {
 }
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
+
 
 // Enqueue custom scripts and localize ajaxurl
 function enqueue_custom_scripts() {
@@ -169,5 +180,15 @@ function register_taxonomies_for_attachments() {
     register_taxonomy_for_object_type('format', 'attachment');
 }
 add_action('init', 'register_taxonomies_for_attachments');
+
+// Lightbox
+function enqueue_lightbox_script() {
+    wp_enqueue_script('lightbox-js', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), null, true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_lightbox_script');
+
+
+
+
 ?>
 
