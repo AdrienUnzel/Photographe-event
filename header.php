@@ -12,9 +12,12 @@
 
 <header>
     <nav role="navigation" aria-label="<?php _e('Menu principal', 'photographe-event'); ?>">
-    <a href="http://localhost/Photographe-Event/"> 
-        <img class="logo" src="<?php echo get_template_directory_uri() . '/images/logo.png'; ?>" alt="logo">
-    </a>
+        <a href="http://localhost/Photographe-Event/"> 
+            <img class="logo" src="<?php echo get_template_directory_uri() . '/images/logo.png'; ?>" alt="logo">
+        </a>
+        <div class="burger" id="burger">
+            <span></span>
+        </div>
         <?php
             wp_nav_menu([
                 'theme_location' => 'main-menu',

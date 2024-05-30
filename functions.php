@@ -39,36 +39,55 @@ function getRandomImageURL() {
     }
 }
 
+// Generate photo HTML
+function generate_photo_html($post_id, $reference, $category_name) {
+    $thumbnail_url = get_the_post_thumbnail_url($post_id);
+    $permalink = get_the_permalink($post_id);
+
+    $output = '<div class="photo-item">';
+    $output .= '<div class="photo-clicable-element">';
+    $output .= '<a href="' . esc_url($permalink) . '">';
+    $output .= '<img src="wp-content/themes/Photographe-event/images/Icon_eye.png" alt="eyes" class="eyes">';
+    $output .= '</a>';
+    $output .= '<img src="wp-content/themes/Photographe-event/images/Icon_fullscreen.png" alt="fullscreen" class="fullscreen" data-fullscreen-url="' . esc_url($thumbnail_url) . '">';
+    $output .= '</div>';
+    $output .= get_the_post_thumbnail($post_id);
+    $output .= '<div class="photo-info" ';
+    $output .= 'data-url="' . esc_url($thumbnail_url) . '" ';
+    $output .= 'data-category="' . esc_html($category_name) . '" ';
+    $output .= 'data-reference="' . esc_html($reference) . '" ';
+    $output .= '>';
+    $output .= '<p class="photo-reference">' . esc_html($reference) . '</p>';
+    $output .= '<p class="photo-category">' . esc_html($category_name) . '</p>';
+    $output .= '</div>'; // Close .photo-info
+    $output .= '</div>'; // Close .photo-item
+
+    return $output;
+}
+
 // Load more photos via AJAX
 function load_more_photos() {
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $args = array(
-        'post_type' => 'attachment',
-        'post_mime_type' => 'image',
-        'posts_per_page' => 8,
-        'orderby' => 'post_date',
-        'order' => 'ASC',
+        'posts_per_page' => 8, // Nombre d'articles similaires à afficher
+        'post_type' => 'photo', // Type de publication
+        'order' => 'ASC', // Ordonner
         'paged' => $page,
     );
 
-    $attachments = get_posts($args);
+    $related_posts = new WP_Query($args);
     $output = '';
-    if ($attachments) {
-        foreach ($attachments as $attachment) {
-            $image_url = wp_get_attachment_image_src($attachment->ID, 'full');
-            $image_alt = get_post_meta($attachment->ID, '_wp_attachment_image_alt', true);
-            $image_category = wp_get_post_terms($attachment->ID, 'categorie'); 
+
+    if ($related_posts->have_posts()) {
+        while ($related_posts->have_posts()) {
+            $related_posts->the_post();
+            $reference = get_post_meta(get_the_ID(), 'reference', true);
+            $image_category = get_the_terms(get_the_ID(), 'categorie');
             $category_name = !empty($image_category) ? $image_category[0]->name : 'Uncategorized';
-            
-            // Append image HTML with reference and category
-            $output .= '<div class="photo-item">';
-            $output .= '<img src="' . esc_url($image_url[0]) . '" alt="' . esc_attr($image_alt) . '" width="564" height="495">';
-            $output .= '<div class="photo-info">';
-            $output .= '<p class="photo-reference">' . esc_html($image_alt) . '</p>';
-            $output .= '<p class="photo-category">' . esc_html($category_name) . '</p>';
-            $output .= '</div>'; // Close photo-info
-            $output .= '</div>'; // Close photo-item
+
+            $output .= generate_photo_html(get_the_ID(), $reference, $category_name);
         }
+        wp_reset_postdata();
     }
 
     wp_send_json($output);
@@ -76,6 +95,60 @@ function load_more_photos() {
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
+// Filter photos by category and format via AJAX
+function filter_photos() {
+    $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
+    $format_slug = isset($_POST['format_slug']) ? sanitize_text_field($_POST['format_slug']) : '';
+    $date_format = isset($_POST['date_format']) ? sanitize_text_field($_POST['date_format']) : 'ASC';
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+
+    $args = array(
+        'post_type' => 'photo',
+        'post_status' => 'publish',
+        'posts_per_page' => 8, // Limiter à 8 images au début
+        'paged' => $page, // Utiliser le numéro de page
+        'tax_query' => array(),
+        'order' => $date_format,
+    );
+
+    if ($category_id) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'categorie',
+            'field' => 'term_id',
+            'terms' => $category_id,
+        );
+    }
+
+    if ($format_slug) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'format',
+            'field' => 'slug',
+            'terms' => $format_slug,
+        );
+    }
+
+    $query = new WP_Query($args);
+    $filtered_images = '';
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $reference = get_post_meta(get_the_ID(), 'reference', true);
+            $image_category = get_the_terms(get_the_ID(), 'categorie');
+            $category_name = !empty($image_category) ? $image_category[0]->name : 'Uncategorized';
+
+            $filtered_images .= generate_photo_html(get_the_ID(), $reference, $category_name);
+        }
+        wp_reset_postdata();
+    } else {
+        $filtered_images = '<p>Aucune photo trouvée pour cette catégorie et ce format.</p>';
+    }
+
+    wp_send_json($filtered_images);
+    wp_die();
+}
+add_action('wp_ajax_filter_photos', 'filter_photos');
+add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
 
 // Enqueue custom scripts and localize ajaxurl
 function enqueue_custom_scripts() {
@@ -126,54 +199,6 @@ function get_image_formats_ajax() {
 add_action('wp_ajax_get_image_formats', 'get_image_formats_ajax');
 add_action('wp_ajax_nopriv_get_image_formats', 'get_image_formats_ajax');
 
-// Filter photos by category and format via AJAX
-function filter_photos() {
-    $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
-    $format_slug = isset($_POST['format_slug']) ? sanitize_text_field($_POST['format_slug']) : '';
-    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
-
-    $args = array(
-        'post_type' => 'attachment',
-        'post_status' => 'inherit',
-        'posts_per_page' => 8, // Limiter à 8 images au début
-        'paged' => $page, // Utiliser le numéro de page
-        'tax_query' => array(),
-    );
-
-    // Ajouter la taxonomie de catégorie à la requête si une catégorie est sélectionnée
-    if ($category_id) {
-        $args['tax_query'][] = array(
-            'taxonomy' => 'categorie',
-            'field'    => 'term_id',
-            'terms'    => $category_id,
-        );
-    }
-
-    $query = new WP_Query($args);
-    $filtered_images = '';
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            $image_url = wp_get_attachment_image_src(get_the_ID(), 'full');
-            $image_alt = get_post_meta(get_the_ID(), '_wp_attachment_image_alt', true);
-            $filtered_images .= '<div class="photo-item">';
-            $filtered_images .= '<img src="' . esc_url($image_url[0]) . '" alt="' . esc_attr($image_alt) . '" width="564" height="495">';
-            $filtered_images .= '</div>';
-        }
-        wp_reset_postdata();
-    } else {
-        $filtered_images = '<p>Aucune photo trouvée pour cette catégorie et ce format.</p>';
-    }
-
-    echo $filtered_images;
-    wp_die();
-}
-add_action('wp_ajax_filter_photos', 'filter_photos');
-add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
-
-
-
-
 // Register taxonomies for attachments
 function register_taxonomies_for_attachments() {
     register_taxonomy_for_object_type('categorie', 'attachment');
@@ -186,9 +211,7 @@ function enqueue_lightbox_script() {
     wp_enqueue_script('lightbox-js', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), null, true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_lightbox_script');
-
-
-
-
 ?>
+
+
 

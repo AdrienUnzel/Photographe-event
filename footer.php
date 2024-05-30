@@ -1,3 +1,11 @@
+
+<footer>
+    <ul>
+    <li><a href="#">MENTIONS LÉGALES</a></li>
+    <li><a href="http://localhost/Photographe-Event/politique-de-confidentialite">VIE PRIVÉE</a></li>
+    <li><a href="#">TOUS DROITS RÉSERVÉS</a></li>
+    </ul>   
+</footer>
 <?php wp_footer(); ?>
 
 <div id="lightbox" style="display:none;">
@@ -20,13 +28,6 @@
     </div>
 </div>
 
-<footer>
-    <ul>
-    <li><a href="#">MENTIONS LÉGALES</a></li>
-    <li><a href="#">VIE PRIVÉE</a></li>
-    <li><a href="#">TOUS DROITS RÉSERVÉS</a></li>
-    </ul>   
-</footer>
     <?php get_template_part( 'modal' ); ?>
 </body>
 

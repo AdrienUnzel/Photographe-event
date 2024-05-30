@@ -130,6 +130,7 @@ function loadMorePhotos() {
                 });
                 nextPage = nextPage +1;
             }
+            addFullScreenEvent();
         }
     });
 }
@@ -179,69 +180,55 @@ jQuery(document).ready(function($) {
 
     // Gérer le changement de catégorie
     $('#filter-by-category').change(function() {
-        var category_id = $(this).val();
-        var format_slug = $('#filter-by-format').val();
-
-        filterPhotos(category_id, format_slug);
+        filterPhotos();
     });
 
     // Gérer le changement de format
     $('#filter-by-format').change(function() {
-        var category_id = $('#filter-by-category').val();
-        var format_slug = $(this).val();
-
-        filterPhotos(category_id, format_slug);
+        filterPhotos();
+    });
+    
+    // Gérer le changement de tri par date 
+    $('#sort-by').change(function() {
+        filterPhotos();
     });
 
-    function filterPhotos(category_id, format_slug) {
+    function filterPhotos() {
+       
+        var category_id = $('#filter-by-category').val();
+        var format_slug = $('#filter-by-format').val();
+        var date_format = $('#sort-by').val();
+
         $.ajax({
             url: ajaxurl,
             type: 'POST',
             data: {
                 action: 'filter_photos',
                 category_id: category_id,
-                format_slug: format_slug
+                format_slug: format_slug,
+                date_format: date_format
             },
             success: function(response) {
                 $('.photo-grid').html(response);
+                addFullScreenEvent();
             }
         });
     }
 
-    // Gérer le changement de tri par date 
-    $('#sort-by').change(function() {
-        var sort_by = $(this).val();
-        var category_id = $('#filter-by-category').val();
-        var format_slug = $('#filter-by-format').val();
-
-        $.ajax({
-            url: ajaxurl,
-            type: 'POST',
-            data: {
-                action: 'sort_photos',
-                sort_by: sort_by,
-                category_id: category_id,
-                format_slug: format_slug
-            },
-            success: function(response) {
-                $('.photo-grid').html(response);
-            }
-        });
-    });
 });
 
 
 // Écouteur d'événement pour la création de nouvelles catégories
-$(document).change('category-add', function() {
-    // Recharger les options du select des catégories
-    reloadCategoryOptions();
-});
+// $(document).change('category-add', function() {
+//     // Recharger les options du select des catégories
+//     reloadCategoryOptions();
+// });
 
-// Écouteur d'événement pour la création de nouveaux formats
-$(document).on('format-add', function() {
-    // Recharger les options du select des formats
-    reloadFormatOptions();
-});
+// // Écouteur d'événement pour la création de nouveaux formats
+// $(document).on('format-add', function() {
+//     // Recharger les options du select des formats
+//     reloadFormatOptions();
+// });
 
 // Fonction pour recharger les options du select des catégories
 function reloadCategoryOptions() {
@@ -316,4 +303,44 @@ $(document).ready(function() {
     loadTaxonomyTerms();
 });
 */
+
+$(document).ready(function(){
+    $("input[name='your-reference']").val("");
+
+    // Handle hover for navigation buttons
+    $('.btn-nav.left, .btn-nav.right').hover(
+        function() {
+            var imageUrl = $(this).data('thumbnail-url');
+            if (imageUrl) {
+                var positionClass = $(this).hasClass('left') ? 'left' : 'right';
+                $('.preview-thumbnail')
+                    .html('<img src="'+ imageUrl +'" class="hover-thumbnail">')
+                    .addClass(positionClass)
+                    .show();
+            }
+        },
+        function() {
+            $('.preview-thumbnail').hide().removeClass('left right');
+        }
+    );
+});
+
+/**************menu burger*****************/
+document.addEventListener('DOMContentLoaded', function () {
+    var burger = document.querySelector('.burger');
+    var menu = document.querySelector('ul#menu-menu-principal');
+
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('active');
+        menu.classList.toggle('active');
+        // Si le menu est actif, le montrer, sinon le cacher
+        if (menu.classList.contains('active')) {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    });
+});
+
+
 
