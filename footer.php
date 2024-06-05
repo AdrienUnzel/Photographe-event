@@ -2,9 +2,9 @@
 <footer>
     <ul>
     <li><a href="#">MENTIONS LÉGALES</a></li>
-    <li><a href="http://localhost/Photographe-Event/politique-de-confidentialite">VIE PRIVÉE</a></li>
+    <li><a href="<?php echo get_permalink(get_page_by_path('politique-de-confidentialite')); ?>">VIE PRIVÉE</a></li>
     <li><a href="#">TOUS DROITS RÉSERVÉS</a></li>
-    </ul>   
+    </ul> 
 </footer>
 <?php wp_footer(); ?>
 

@@ -12,8 +12,8 @@
 
 <header>
     <nav role="navigation" aria-label="<?php _e('Menu principal', 'photographe-event'); ?>">
-        <a href="http://localhost/Photographe-Event/"> 
-            <img class="logo" src="<?php echo get_template_directory_uri() . '/images/logo.png'; ?>" alt="logo">
+        <a href="<?php echo home_url(); ?>"> 
+            <img class="logo" src="<?php echo get_template_directory_uri() . '/images/Logo.png'; ?>" alt="logo">
         </a>
         <div class="burger" id="burger">
             <span></span>

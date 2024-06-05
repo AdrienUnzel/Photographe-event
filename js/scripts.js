@@ -325,6 +325,9 @@ $(document).ready(function(){
     );
 });
 
+
+
+
 /**************menu burger*****************/
 document.addEventListener('DOMContentLoaded', function () {
     var burger = document.querySelector('.burger');

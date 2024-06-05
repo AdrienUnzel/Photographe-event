@@ -80,6 +80,7 @@ $annee     = get_post_meta(get_the_ID(), 'annee', true);
 <hr>
 
 <div class="contact btn">
+    <?php if ($previous_post) : ?>
     <div class="btn-nav left" data-thumbnail-url="<?php echo $previous_thumbnail_url; ?>">
         <a href="<?php echo get_permalink($previous_post->ID); ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="8" viewBox="0 0 26 8" fill="none">
@@ -87,6 +88,9 @@ $annee     = get_post_meta(get_the_ID(), 'annee', true);
             </svg>
         </a>
     </div>
+    <?php endif; ?>
+    
+    <?php if ($next_post) : ?>
     <div class="btn-nav right" data-thumbnail-url="<?php echo $next_thumbnail_url; ?>">
         <a href="<?php echo get_permalink($next_post->ID); ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="8" viewBox="0 0 26 8" fill="none">
@@ -94,7 +98,9 @@ $annee     = get_post_meta(get_the_ID(), 'annee', true);
             </svg>
         </a>
     </div>
+    <?php endif; ?>
 </div>
+
 
 <hr class="line">
 <?php get_template_part('templates_parts/photo_block'); ?>
