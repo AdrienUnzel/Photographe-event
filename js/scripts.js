@@ -193,21 +193,20 @@ jQuery(document).ready(function($) {
         filterPhotos();
     });
 
+    function getFilterData() {
+        return {
+            action: 'filter_photos',
+            category_id: $('#filter-by-category').val(),
+            format_slug: $('#filter-by-format').val(),
+            date_format: $('#sort-by').val()
+        };
+    }
+    
     function filterPhotos() {
-       
-        var category_id = $('#filter-by-category').val();
-        var format_slug = $('#filter-by-format').val();
-        var date_format = $('#sort-by').val();
-
         $.ajax({
             url: ajaxurl,
             type: 'POST',
-            data: {
-                action: 'filter_photos',
-                category_id: category_id,
-                format_slug: format_slug,
-                date_format: date_format
-            },
+            data: getFilterData(),
             success: function(response) {
                 $('.photo-grid').html(response);
                 addFullScreenEvent();

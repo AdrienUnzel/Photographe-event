@@ -95,7 +95,16 @@ function load_more_photos() {
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
-// Filter photos by category and format via AJAX
+function add_tax_query(&$args, $taxonomy, $field, $term) {
+    if ($term) {
+        $args['tax_query'][] = array(
+            'taxonomy' => $taxonomy,
+            'field' => $field,
+            'terms' => $term,
+        );
+    }
+}
+
 function filter_photos() {
     $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
     $format_slug = isset($_POST['format_slug']) ? sanitize_text_field($_POST['format_slug']) : '';
@@ -105,27 +114,14 @@ function filter_photos() {
     $args = array(
         'post_type' => 'photo',
         'post_status' => 'publish',
-        'posts_per_page' => 8, // Limiter à 8 images au début
-        'paged' => $page, // Utiliser le numéro de page
+        'posts_per_page' => 8,
+        'paged' => $page,
         'tax_query' => array(),
         'order' => $date_format,
     );
 
-    if ($category_id) {
-        $args['tax_query'][] = array(
-            'taxonomy' => 'categorie',
-            'field' => 'term_id',
-            'terms' => $category_id,
-        );
-    }
-
-    if ($format_slug) {
-        $args['tax_query'][] = array(
-            'taxonomy' => 'format',
-            'field' => 'slug',
-            'terms' => $format_slug,
-        );
-    }
+    add_tax_query($args, 'categorie', 'term_id', $category_id);
+    add_tax_query($args, 'format', 'slug', $format_slug);
 
     $query = new WP_Query($args);
     $filtered_images = '';
@@ -149,6 +145,7 @@ function filter_photos() {
 }
 add_action('wp_ajax_filter_photos', 'filter_photos');
 add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+
 
 // Enqueue custom scripts and localize ajaxurl
 function enqueue_custom_scripts() {
