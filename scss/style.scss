@@ -1258,6 +1258,20 @@ button#load-more-btn {
 
 }
 
+@media only screen and (max-width: 700px) {
+	.burger {
+        width: 27px;
+        height: 18px;
+        cursor: pointer;
+        position: absolute;
+        z-index: 10;
+        right: 40px;
+        top: 70px;
+        margin: auto;
+    }
+}
+
+
 @media only screen and (max-width: 600px) {
 	.modal {
 		left: 139px;
@@ -1269,6 +1283,19 @@ button#load-more-btn {
 	footer ul {
 		flex-direction: column;
 		gap: 30px;
+	}
+	.photo-item {
+        position: relative;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+	.photo-item img {
+		width: 100%;
+		height: 495px;
+		-o-object-fit: cover;
+		object-fit: cover;
+		transition: filter 0.3s ease;
 	}
 }
 
